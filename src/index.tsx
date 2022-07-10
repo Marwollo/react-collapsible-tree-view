@@ -1,3 +1,3 @@
-import { CollapsibleTree } from './components/CollapsibleTree'
+import { CollapsibleTree, ITreeRenderItemProps } from './components/CollapsibleTree'
 
-export { CollapsibleTree };
+export { CollapsibleTree, ITreeRenderItemProps };

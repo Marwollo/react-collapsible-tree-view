@@ -1,6 +1,6 @@
 import React from 'react'
 import { CollapsibleTree } from 'react-collapsible-tree-view'
-import { IRenderItemProps } from '../../dist/components/CollapsibleTree';
+import { CustomTreeItem } from './CustomTreeItem';
 
 const App = () => {
   const tree = {
@@ -22,17 +22,11 @@ const App = () => {
     ]
   };
 
-  const treeItem = ({ data, toggle, isExpanded, isLeaf } : IRenderItemProps<string>) => {
-
-    const toggleButtonLabel = isExpanded ? "Collapse" : "Expand";
-
-    return <div>
-      {!isLeaf && <button onClick={toggle}>{toggleButtonLabel}</button>}
-      <p>{data}</p>
-    </div>;
-  }
-
-  return <CollapsibleTree keyExtractor={(item) => item} renderItem={treeItem} data={tree} />
+  return (
+    <div>
+      <CollapsibleTree keyExtractor={(item) => item} renderItem={CustomTreeItem} data={tree} />
+    </div>
+  );
 }
 
 export default App

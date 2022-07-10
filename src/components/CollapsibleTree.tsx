@@ -8,12 +8,14 @@ interface TreeData<T> {
 
 interface IProps<T> {
     data: TreeData<T>,
+    depth: number,
     keyExtractor: (item: T) => string,
-    renderItem: (props: IRenderItemProps<T>) => ReactNode
+    renderItem: (props: ITreeRenderItemProps<T>) => ReactNode
 }
 
-export interface IRenderItemProps<T> {
+export interface ITreeRenderItemProps<T> {
     data: T,
+    depth: number,
     toggle: () => void,
     isExpanded?: boolean,
     isLeaf?: boolean
@@ -46,8 +48,9 @@ export const CollapsibleTree = <T extends unknown>(props: IProps<T>) => {
 
     const isExpanded = visibility == visibilityTypes.expanded;
 
-    const renderItemProps : IRenderItemProps<T> = {
+    const renderItemProps : ITreeRenderItemProps<T> = {
         data: props.data.value,
+        depth: props.depth,
         toggle: toggleVisibility,
         isExpanded: isExpanded,
         isLeaf: props.data.children.length === 0
@@ -62,8 +65,14 @@ export const CollapsibleTree = <T extends unknown>(props: IProps<T>) => {
                         keyExtractor={props.keyExtractor}
                         renderItem={props.renderItem} 
                         data={child} 
+                        depth={props.depth + 1}
                     />
             )}
         </div>
     );
+}
+
+
+CollapsibleTree.defaultProps = {
+    depth: 0
 }
